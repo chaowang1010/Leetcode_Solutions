@@ -1,0 +1,12 @@
+public class Solution {
+    public int maxSubArray(int[] A) {
+        int result = Integer.MIN_VALUE;   // Integer.MIN_VALUE Integer.MAX_VALUE
+        int f = 0;
+        int n = A.length;
+        for (int i=0; i<n; i++ ){
+            f = Math.max(f+A[i],A[i]);
+            result = Math.max(result, f);
+        }
+        return result;
+    }
+}
