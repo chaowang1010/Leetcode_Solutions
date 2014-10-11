@@ -1,31 +1,32 @@
 
 public class Solution {
+    // Recursive ... not in place. 
+    
     public void flatten(TreeNode root) {
         flattenTree(root);
     }
 
     private TreeNode flattenTree(TreeNode root){
     	if(root == null) return null;
-    	TreeNode right = root.right;
-    	TreeNode temp = root;
-
-    	if(root.left != null){
-    		temp = flattenTree(root.left);
-    		root.right = temp;
-    		temp.right = right;
-    		root.left = null;
-    	}
-
-    	if(root.right != null)
-    		temp = flattenTree(root.right);
     	
-    	return temp;
+    	TreeNode left = root.left;
+        TreeNode right = root.right;
+        
+        TreeNode leftTail = flattenTree(root.left);
+        if(leftTail == null) leftTail = root;
+        TreeNode rightTail = flattenTree(root.right);
+        if(rightTail == null) rightTail = leftTail;
+        
+        root.left = null;
+        root.right = left;
+        leftTail.right = right;
+        return rightTail;
     }
-
-    // Using stack ... not in place
+    
+    // iteration.. stack..
     public void flatten(TreeNode root){
-    	Stack<TreeNode> curr = Stack<TreeNode>();
-    	curr = root;
+    	Stack<TreeNode> stack = new Stack<TreeNode>();
+    	TreeNode curr = root;
     	while(curr != null || !stack.empty()){
     		if(curr.right != null) {
     			stack.push(curr.right);
@@ -40,4 +41,36 @@ public class Solution {
     		curr = curr.right;
     	}
     }
+    
+    // Iteration...
+    private TreeNode pre = null;
+
+    public void flatten(TreeNode root){
+    	TreeNode dummy = new TreeNode(0);
+    	dummy.right = root;
+    	dummy.left = null;
+    	pre = dummy;
+    	flattenHelper(root);
+    }
+
+    public void flattenHelper(TreeNode root){
+    	if(root == null) 
+    		return;
+
+    	pre.right = root;
+    	pre.left = null;
+
+    	pre = root;
+
+    	// after invoke flattenHelper on root.left, root.right will revised
+    	// so record this value
+    	TreeNode right = root.right;
+    	flattenHelper(root.left);
+    	flattenHelper(right);
+
+    }
 }
+
+
+
+
