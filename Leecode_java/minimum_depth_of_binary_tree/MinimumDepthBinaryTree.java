@@ -11,7 +11,7 @@ public class Solution {
         return Math.min(l , r) + 1;
     }
 
-    // BFS, BFS can stop as soon as it hits the first leaf and return the depth there.
+	// BFS, BFS can stop as soon as it hits the first leaf and return the depth there.
     public int minDepth(TreeNode root){
     	if(root == null) return 0;
 
@@ -21,11 +21,16 @@ public class Solution {
     	queue.offer(null);
 
     	while(!queue.isEmpty()){
-    		TreeNode curr = queue.pool();
+    		TreeNode curr = queue.poll();
     		if(curr == null){
     			depth ++;
-    			
+    			queue.offer(null);
+    		} else {
+    			if(curr.left == null && curr.right == null) return depth + 1;
+    			if(curr.left != null) queue.offer(curr.left);
+    			if(curr.right != null) queue.offer(curr.right);
     		}
     	}
+    	return depth;
     }
 }
