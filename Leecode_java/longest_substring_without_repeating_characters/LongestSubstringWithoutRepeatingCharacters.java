@@ -32,7 +32,7 @@ public class Solution {
         if(s.length() < 2) return s.length();
         
         int i = 0;
-        String temp = '';
+        String temp = "";
         
         while(i < s.length()){
             char c = s.charAt(i);
@@ -49,20 +49,23 @@ public class Solution {
         return Math.max(maxLen, temp.length());
     }
 
-    // TLE ... 
+    // stack ... valid solution
     public int lengthOfLongestSubstring(String s) {
-        int[] prevPos = new int[Character.MAX_VALUE + 1];
-        Arrays.fill(prevPos, -1);
-        int substringBegin = 0;
-        int maxSubstringLen = 0;
-        for (int i = 0; i < s.length(); i++) {
-            substringBegin = Math.max(substringBegin,
-                    prevPos[s.charAt(i)] + 1);
-            prevPos[s.charAt(i)] = i;
-            maxSubstringLen = Math.max(maxSubstringLen, i - substringBegin
-                    + 1);
+        int maxLen = 0;
+        if(s.length() < 2) return s.length();
+
+        HashMap<Character, Integer> map = new HashMap<Character, Integer>();
+        int start = 0, i = 0;
+
+        while(i < s.length()){
+            char c = s.charAt(i);
+            if(map.containsKey(c) && map.get(c) >= start){ //found a hit
+                maxLen = Math.max(maxLen, i - start);
+                start = map.get(c) + 1;
+            }
+            map.put(c, i);
+            i++;
         }
-        return maxSubstringLen;
-    }
-    
+        return Math.max(maxLen, i - start);
+    } 
 }
