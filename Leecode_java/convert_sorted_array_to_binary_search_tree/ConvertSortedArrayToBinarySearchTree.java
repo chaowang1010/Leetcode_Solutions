@@ -1,4 +1,6 @@
 public class Solution {
+
+    //T(n) = 2T(n/2) + O(1) = O(n)
     public TreeNode sortedArrayToBST(int[] num) {
        return sortedArrayToBST(num, 0, num.length -1 );
     }
