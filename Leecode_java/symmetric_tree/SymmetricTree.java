@@ -32,7 +32,36 @@ public class Solution{
 		return (left.val == right.val) && isSymmetric(left.left, right.right) &&isSymmetric(left.right,right.left); 
 	}
 
-	// Iteration
-	
+	// Iteration ...
+	private boolean isSymmetric(TreeNode left, TreeNode right) {  
+   if (left == null && right == null) return true;  
+   if (left == null || right == null || left.val != right.val) return false;  
+   
+   Queue<TreeNode> lque = new ArrayDeque<TreeNode>();  
+   Queue<TreeNode> rque = new ArrayDeque<TreeNode>();  
+   lque.add(left); rque.add(right);  
+   while (!lque.isEmpty() && !rque.isEmpty()) {  
+     TreeNode l = lque.remove();  
+     TreeNode r = rque.remove();  
+   
+     if (l.left != null && r.right != null && l.left.val == r.right.val) {  
+       lque.add(l.left); rque.add(r.right);  
+     } else if (!(l.left == null && r.right == null)) {  
+       return false;  
+     }  
+   
+     if (l.right != null && r.left != null && l.right.val == r.left.val) {  
+       lque.add(l.right); rque.add(r.left);  
+     } else if (!(l.right == null && r.left == null)) {  
+       return false;  
+     }  
+   }  
+   
+   return (lque.isEmpty() && rque.isEmpty());  
+ }  
+   
+ public boolean isSymmetric(TreeNode root) {  
+   return (root == null ) || isSymmetric(root.left, root.right);  
+ }  
 }
 
