@@ -4,17 +4,17 @@
 
 public class Solution {
     // brute force TLE  O(n^2)
-    public int maxProfit(int[] prices) {
-        if(prices == null || prices.length < 1) return 0;
-        int max = Integer.MIN_VALUE;
-        for(int i = 0; i < prices.length; i ++){
-            for(int j = i + 1; j < prices.length; j ++){
-                if(max < prices[j] - prices[i])
-                    max = prices[j] - prices[i];
-            }
-        }
-        return max;
-    }
+    // public int maxProfit(int[] prices) {
+    //     if(prices == null || prices.length < 1) return 0;
+    //     int max = Integer.MIN_VALUE;
+    //     for(int i = 0; i < prices.length; i ++){
+    //         for(int j = i + 1; j < prices.length; j ++){
+    //             if(max < prices[j] - prices[i])
+    //                 max = prices[j] - prices[i];
+    //         }
+    //     }
+    //     return max;
+    // }
 
    	// One pass -  O(n)
     public int maxProfit(int[] prices) {
@@ -46,4 +46,16 @@ public class Solution {
     	}
     	return curr;
     }
+
+    // return the days of transactions
+    public int maxProfit(int[] prices) {  
+	     int profit = 0, buyDay = 0, sellDay = 1;  
+	     while (sellDay < prices.length) {  
+	     	int curProfit = prices[sellDay] - prices[buyDay];  
+	     	if (curProfit <= 0)  buyDay = sellDay;  
+	     	profit = Math.max(curProfit, profit);  
+	     	sellDay++;  
+	   	}  
+	    return profit;  
+	}  
 }
