@@ -37,7 +37,6 @@ public class Solution {
         		if(board[i][j] == '.'){
         			continue;
         		}
-
         		int c = board[i][j] - '1';
         		if(row.get(i)[c] == true || col.get(j)[c] == true || block.get(i/3*3+j/3)[c] == true)
         			return false;
