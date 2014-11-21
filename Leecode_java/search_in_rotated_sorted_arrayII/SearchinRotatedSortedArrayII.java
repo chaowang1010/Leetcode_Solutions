@@ -24,7 +24,7 @@ public class Solution {
                 } else {
                     right = mid - 1;
                 }
-            }else if(A[right] < A[mid]){                // left is in order
+            }else if(A[right] < A[mid]){ // left is in order
                 if(A[mid] > target && A[left]<= target){
                     right = mid - 1;
                 }else{
