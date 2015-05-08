@@ -47,6 +47,20 @@ public class Solution {
     	return curr;
     }
 
+    // DP ... 
+    public int maxProfit(int[] prices) {
+        if(prices == null || prices.length < 2)
+            return 0;
+        
+        int low = prices[0], max = 0;
+        for(int i = 1; i < prices.length; i++){
+            low = Math.min(low, prices[i - 1]);
+            max = Math.max(max, prices[i] - low);
+        }
+        return max;
+    }
+}
+
     // return the days of transactions
     public int maxProfit(int[] prices) {  
 	     int profit = 0, buyDay = 0, sellDay = 1;  
